@@ -1,0 +1,70 @@
+/* Dress Code section on uninterrupted cream stationery */
+
+.dresscode-section {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.74), transparent 24rem),
+    repeating-linear-gradient(88deg, rgba(110, 89, 61, 0.014) 0 1px, transparent 1px 6px),
+    var(--soft-ivory);
+  color: #523732;
+  padding-top: clamp(4rem, 10vw, 6rem);
+  padding-bottom: clamp(4rem, 10vw, 6rem);
+  margin: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.dress-code-heading {
+  margin: 0 0 1rem;
+  color: #63403a;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: clamp(2.4rem, 7.5vw, 3.8rem);
+  font-weight: 400;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.dress-code-text {
+  max-width: 28rem;
+  margin: 0 auto 1.8rem;
+  color: #5c3f39;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: clamp(1rem, 2.8vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.colour-palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+}
+
+.colour-swatch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.swatch {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.swatch--gold { background: #d4af37; }
+.swatch--pink { background: #d8aaa8; }
+.swatch--olive { background: #718064; }
+.swatch--peach { background: #e6b49a; }
+.swatch--blue { background: #17233a; }
+
+.colour-swatch-item span {
+  color: #6b4c46;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+}

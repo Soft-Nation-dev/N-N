@@ -1,0 +1,229 @@
+/* Wedding venue cards and illustrations */
+
+.venue-type {
+  margin: 0;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.venue-card h3 {
+  margin: 0 0 0.35rem;
+  color: var(--wine-dark);
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 3.8vw, 1.45rem);
+  font-weight: 500;
+}
+
+.venue-card p {
+  margin: 0;
+  color: rgba(75, 41, 48, 0.68);
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.venues-section {
+  background: var(--soft-ivory);
+}
+
+.venue-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2.6rem;
+}
+
+.venue-card {
+  display: flex;
+  min-height: 23rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.35rem;
+  border: 1px solid rgba(183, 147, 75, 0.35);
+  background:
+    linear-gradient(rgba(255, 251, 244, 0.93), rgba(255, 251, 244, 0.93)),
+    url('../assets/backdrop.png') center bottom / 150% auto no-repeat;
+  box-shadow: 0 1rem 2.2rem rgba(85, 52, 39, 0.08);
+}
+
+.venue-symbol {
+  margin-bottom: 1.1rem;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 2.3rem;
+}
+
+.venue-symbol--reception {
+  transform: rotate(45deg);
+}
+
+.venue-type {
+  margin-bottom: 0.55rem !important;
+  color: var(--gold) !important;
+  font-size: 0.58rem !important;
+}
+
+.venue-card time {
+  margin: 1rem 0;
+  color: var(--wine);
+  font-family: var(--serif);
+  font-weight: 600;
+}
+
+.venue-card a {
+  padding-bottom: 0.22rem;
+  border-bottom: 1px solid rgba(110, 38, 54, 0.35);
+  color: var(--wine);
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (max-width: 560px) {
+
+  .venue-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .venue-card {
+    min-height: 20rem;
+  }
+}
+
+.venues-section {
+  color: #513d3c;
+  background: transparent;
+}
+
+.venue-type {
+  color: #9e7a3d;
+  font-weight: 500;
+}
+
+.venue-card h3 {
+  color: #72504d;
+}
+
+.venue-grid {
+  gap: clamp(1rem, 4vw, 1.7rem);
+}
+
+.venue-card {
+  min-height: 25rem;
+  padding: 2.25rem 1.45rem;
+  border: 1px solid rgba(178, 138, 70, 0.16);
+  border-radius: 1.15rem;
+  outline: 1px solid rgba(178, 138, 70, 0.2);
+  outline-offset: -0.65rem;
+  background:
+    radial-gradient(circle at 50% 26%, rgba(255, 255, 255, 0.94), rgba(255, 252, 246, 0.76) 55%, rgba(247, 237, 222, 0.72)),
+    url('../assets/backdrop.png') center bottom / 155% auto no-repeat;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.venue-illustration {
+  position: relative;
+  width: 8.4rem;
+  height: 6.2rem;
+  margin: 0 auto 1.25rem;
+  color: rgba(163, 124, 62, 0.72);
+}
+
+.venue-illustration i {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+}
+
+.venue-illustration__building {
+  left: 50%;
+  bottom: 0.55rem;
+  width: 5.4rem;
+  height: 3rem;
+  border: 1px solid currentColor;
+  transform: translateX(-50%);
+}
+
+.venue-illustration__roof {
+  left: 50%;
+  bottom: 3.55rem;
+  width: 4.15rem;
+  height: 4.15rem;
+  border-top: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  transform: translateX(-50%) rotate(45deg);
+  transform-origin: center;
+}
+
+.venue-illustration__detail {
+  left: 50%;
+  bottom: 0.55rem;
+  width: 1.25rem;
+  height: 2.1rem;
+  border: 1px solid currentColor;
+  border-bottom: 0;
+  border-radius: 0.65rem 0.65rem 0 0;
+  transform: translateX(-50%);
+}
+
+.venue-illustration--chapel::before,
+.venue-illustration--chapel::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 0.08rem;
+  width: 1px;
+  height: 1.25rem;
+  background: currentColor;
+}
+
+.venue-illustration--chapel::after {
+  top: 0.48rem;
+  width: 0.8rem;
+  height: 1px;
+  transform: translateX(-50%);
+}
+
+.venue-illustration--hall .venue-illustration__roof {
+  bottom: 3.65rem;
+  width: 7rem;
+  height: 0.85rem;
+  border: 1px solid currentColor;
+  border-bottom: 3px double currentColor;
+  transform: translateX(-50%);
+}
+
+.venue-illustration--hall .venue-illustration__building {
+  width: 6.6rem;
+  height: 3.15rem;
+  background: repeating-linear-gradient(90deg, transparent 0 0.68rem, currentColor 0.69rem 0.74rem, transparent 0.75rem 1.34rem);
+}
+
+.venue-illustration--hall .venue-illustration__detail {
+  bottom: 0.15rem;
+  width: 7.3rem;
+  height: 0.5rem;
+  border: 0;
+  border-top: 3px double currentColor;
+  border-radius: 0;
+}
+
+.venue-card a {
+  border-bottom-color: rgba(178, 138, 70, 0.38);
+  color: #8d6d38;
+}
+
+@media (max-width: 560px) {
+
+  .venue-card {
+    min-height: 22rem;
+  }
+}

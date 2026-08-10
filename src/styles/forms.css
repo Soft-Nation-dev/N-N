@@ -1,0 +1,68 @@
+/* Shared wedding forms */
+
+.wedding-form {
+  display: grid;
+  gap: 1.15rem;
+  margin: 2.3rem auto 0;
+  text-align: left;
+}
+
+.wedding-form label {
+  display: grid;
+  gap: 0.42rem;
+  color: var(--wine-dark);
+  font-family: var(--serif);
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+}
+
+.wedding-form input,
+.wedding-form textarea,
+.wedding-form select {
+  width: 100%;
+  padding: 0.9rem 0.85rem;
+  border: 0;
+  border-bottom: 1px solid rgba(110, 38, 54, 0.28);
+  border-radius: 0;
+  outline: 0;
+  color: #45222a;
+  background: rgba(255, 255, 255, 0.42);
+  font-family: var(--serif);
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.wedding-form input:focus,
+.wedding-form textarea:focus,
+.wedding-form select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 4px 0 -3px var(--gold);
+}
+
+.wedding-form textarea {
+  resize: vertical;
+}
+
+.wedding-form > button {
+  justify-self: center;
+  margin-top: 0.65rem;
+  padding: 0.92rem 1.7rem;
+  border: 1px solid var(--wine);
+  color: #fff9f2;
+  background: var(--wine);
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  transition: background 250ms ease, color 250ms ease, transform 250ms ease;
+}
+
+.wedding-form > button:hover {
+  color: var(--wine);
+  background: transparent;
+  transform: translateY(-2px);
+}
+
+.rsvp-modal .wedding-form {
+  margin-top: 1.4rem;
+}

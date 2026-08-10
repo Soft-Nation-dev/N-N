@@ -1,0 +1,162 @@
+/* Family and love-story section with torn paper card styling */
+
+.story-section {
+  --story-overlap: clamp(9rem, 20vw, 13rem);
+  --story-art-clearance: clamp(7rem, 16vw, 11rem);
+  position: relative;
+  z-index: 0;
+  margin-top: calc(var(--story-overlap) * -1);
+  margin-bottom: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(223, 215, 207, 0) 0,
+      rgba(223, 215, 207, 0.72) 4rem,
+      #dfd7cf 8rem,
+      #dfd7cf 100%
+    );
+  color: #523732;
+  padding-top: calc(
+    var(--story-overlap) +
+    var(--story-art-clearance) +
+    clamp(1.5rem, 4vw, 2.5rem)
+  );
+  padding-bottom: clamp(4.5rem, 11vw, 6.5rem);
+  box-shadow: none;
+}
+
+/* ============================================================
+   Realistic Deckle Torn Paper Edges
+   The SVG overflows the section container so the torn silhouette
+   IS the actual section boundary — not just a decoration inside it.
+   ============================================================ */
+
+.torn-paper-edge {
+  position: absolute;
+  left: -1%;
+  width: 102%;
+  /* Tall enough to show the displaced SVG fibers */
+  height: 54px;
+  line-height: 0;
+  z-index: 10;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.torn-paper-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Top edge: the bottom of the PREVIOUS section overlaps this section's top */
+.torn-paper-edge--top {
+  top: -28px;   /* pull it up so it hangs into the section above */
+}
+
+/* Bottom edge: hangs down into the section below */
+.torn-paper-edge--bottom {
+  bottom: -28px;
+}
+
+.story-script-heading {
+  margin: 0.5rem 0 0.2rem;
+  color: #63403a;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: clamp(2.4rem, 7.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.story-script-subheading {
+  margin: 0 0 1.6rem;
+  color: #7a544d;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: clamp(1.8rem, 5.5vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.story-body {
+  max-width: 31rem;
+  margin: 0 auto 2.2rem;
+  color: #5c3f39;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: clamp(0.98rem, 2.8vw, 1.15rem);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.family-block {
+  display: grid;
+  gap: 0.8rem;
+  margin: 2.1rem auto;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+}
+
+.family-block p {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.family-block strong {
+  color: #4a2d28;
+  font-size: clamp(1.1rem, 3.8vw, 1.4rem);
+  font-weight: 600;
+}
+
+.family-block span,
+.invitation-intro {
+  color: #6b4c46;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: clamp(0.92rem, 2.6vw, 1.05rem);
+  line-height: 1.7;
+}
+
+.family-and {
+  color: #8c6152;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: 1.8rem;
+  font-style: normal;
+}
+
+.invitation-intro {
+  max-width: 29rem;
+  margin: 1.8rem auto 0;
+  font-style: italic;
+}
+
+.couple-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 1.4rem 0 !important;
+  color: #54342f;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: clamp(2.8rem, 9vw, 4.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+.couple-names span {
+  color: #8c6152;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: 0.44em;
+  font-style: normal;
+}
+
+.story-section blockquote {
+  max-width: 28rem;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(140, 97, 82, 0.3);
+  color: #6b4740;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: clamp(0.98rem, 3vw, 1.25rem);
+  font-style: italic;
+  line-height: 1.65;
+}

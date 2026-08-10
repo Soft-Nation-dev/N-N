@@ -1,0 +1,311 @@
+/* Wedding hero section */
+
+.wedding-hero {
+  --hero-art-spill: clamp(7rem, 16vw, 11rem);
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: visible;
+  background: #ede0d6;
+  color: #5c3832;
+}
+
+.wedding-hero__art-container {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: calc(100% + var(--hero-art-spill));
+  display: block;
+  z-index: -3;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0 88%,
+    rgba(0, 0, 0, 0.94) 92%,
+    rgba(0, 0, 0, 0.58) 96%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0 88%,
+    rgba(0, 0, 0, 0.94) 92%,
+    rgba(0, 0, 0, 0.58) 96%,
+    transparent 100%
+  );
+}
+
+.wedding-hero__art {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Light radiant glow to ensure text reads crisply against the arch backdrop */
+.wedding-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 50% 26%, rgba(255, 248, 240, 0.42) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(255, 248, 240, 0.15) 0%, transparent 32%);
+  pointer-events: none;
+}
+
+/* Gentle falling petals overlay */
+.hero-petals {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-petals i {
+  position: absolute;
+  top: -8%;
+  left: var(--petal-left);
+  width: var(--petal-width);
+  height: var(--petal-height);
+  border-radius: 90% 15% 75% 25%;
+  background: rgba(192, 117, 127, 0.45);
+  filter: blur(0.15px);
+  animation: petal-fall var(--petal-duration) linear infinite;
+  animation-delay: var(--petal-delay);
+}
+
+/* One-time invisible flower popper, triggered when the invitation is revealed */
+.hero-flower-burst {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-flower-burst i {
+  position: absolute;
+  bottom: 9%;
+  left: 50%;
+  width: var(--burst-width);
+  height: var(--burst-height);
+  border-radius: 90% 15% 75% 25%;
+  background: var(--burst-colour);
+  box-shadow: 0 1px 2px rgba(102, 66, 54, 0.13);
+  opacity: 0;
+  transform-origin: center;
+  animation: flower-party-burst var(--burst-duration)
+    cubic-bezier(0.22, 0.65, 0.35, 1) var(--burst-delay) both;
+}
+
+/* Centered hero content */
+.wedding-hero__content {
+  position: relative;
+  place-self: center;
+  width: min(88%, 34rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  text-align: center;
+  z-index: 2;
+}
+
+.wedding-hero__content::before,
+.wedding-hero__content::after {
+  content: none;
+}
+
+/* Eyebrow: "Wedding Day" */
+.hero-eyebrow {
+  margin: 0;
+  color: #6e433b;
+  font-family: 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
+  font-size: clamp(1.8rem, 5.5vw, 2.7rem);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(255, 252, 245, 0.85);
+}
+
+/* Date: "19.12.26" */
+.wedding-hero__content > time {
+  display: block;
+  margin-top: 0.2rem;
+  color: #6e433b;
+  font-family: 'Cormorant Garamond', var(--serif);
+  font-size: clamp(0.74rem, 2.2vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-shadow: 0 1px 2px rgba(255, 252, 245, 0.85);
+}
+
+/* Names Heading: "Nwaamaka & Nnaemeka" */
+.wedding-hero h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: clamp(1.1rem, 3.5vh, 2.1rem);
+  margin-bottom: 0;
+  color: #5c3832;
+  font-family: 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
+  font-size: clamp(3.2rem, 11vw, 5.8rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(255, 252, 245, 0.9);
+}
+
+/* Ampersand "&" connector */
+.wedding-hero h1 span {
+  display: block;
+  margin: 0.15em 0;
+  color: #8c6152;
+  font-family: 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
+  font-size: 0.44em;
+  font-weight: 400;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(255, 252, 245, 0.8);
+}
+
+/* Scroll Cue: "Scroll down" + Chevron */
+.scroll-cue {
+  position: absolute;
+  right: 0;
+  bottom: max(clamp(1.25rem, 3.5vh, 2.5rem), env(safe-area-inset-bottom, 0px));
+  left: 0;
+  width: max-content;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  color: #7a5046;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: clamp(1.15rem, 3.6vw, 1.55rem);
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(255, 252, 245, 0.85);
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+.scroll-cue span {
+  width: auto;
+  height: auto;
+  background: none;
+  animation: none;
+}
+
+.scroll-cue:hover {
+  color: #4a2d27;
+}
+
+.scroll-cue__chevron {
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+  color: #7a5046;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+@keyframes petal-fall {
+  0% { opacity: 0; transform: translate3d(0, -5vh, 0) rotate(0deg); }
+  10% { opacity: 0.75; }
+  90% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate3d(var(--petal-drift), 112vh, 0) rotate(390deg); }
+}
+
+@keyframes flower-party-burst {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, 0, 0) rotate(0deg) scale(0.2);
+  }
+
+  7% {
+    opacity: 1;
+  }
+
+  34% {
+    opacity: 1;
+    transform:
+      translate3d(calc(-50% + var(--burst-peak-x)), var(--burst-peak-y), 0)
+      rotate(var(--burst-rotation))
+      scale(1);
+  }
+
+  82% {
+    opacity: 0.88;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate3d(calc(-50% + var(--burst-land-x)), var(--burst-land-y), 0)
+      rotate(calc(var(--burst-rotation) + 180deg))
+      scale(0.72);
+  }
+}
+
+/* Responsive Desktop Optimizations */
+@media (min-width: 768px) {
+  .wedding-hero__art {
+    object-position: center center;
+  }
+
+  .wedding-hero__content {
+    width: min(80%, 38rem);
+  }
+
+  .wedding-hero h1 {
+    font-size: clamp(4.2rem, 7.5vw, 6.4rem);
+  }
+
+  .scroll-cue {
+    bottom: max(clamp(1.5rem, 4vh, 3rem), env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 560px) {
+  .wedding-hero__content {
+    width: 90%;
+  }
+
+  .hero-eyebrow {
+    font-size: clamp(1.6rem, 6.5vw, 2.3rem);
+  }
+
+  .wedding-hero h1 {
+    font-size: clamp(3rem, 13vw, 4.4rem);
+  }
+
+  .scroll-cue {
+    bottom: max(1.15rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-flower-burst i,
+  .hero-petals i,
+  .scroll-cue__chevron {
+    animation: none;
+  }
+}
