@@ -79,6 +79,11 @@
   animation-delay: var(--petal-delay);
 }
 
+body.intro-locked .hero-petals i,
+body.intro-locked .scroll-cue__chevron {
+  animation-play-state: paused;
+}
+
 /* One-time invisible flower popper, triggered when the invitation is revealed */
 .hero-flower-burst {
   position: absolute;

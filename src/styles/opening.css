@@ -999,6 +999,82 @@
   }
 }
 
+/*
+ * Mobile performance path
+ *
+ * The sealed envelope keeps its full paper treatment. Once the seal is tapped,
+ * the crack phase removes expensive SVG raster filters before the large flap
+ * groups begin moving. The geometry, timing, embroidery, and 3D motion remain.
+ */
+@media (max-width: 760px), (pointer: coarse) {
+  .ambient-glow,
+  .motes {
+    display: none;
+  }
+
+  .opening-stage,
+  .envelope-shell {
+    contain: layout paint style;
+  }
+
+  .envelope-shell {
+    animation-name: envelope-arrive-mobile;
+  }
+
+  .flap--top,
+  .flap--left,
+  .flap--right,
+  .flap--bottom,
+  .seal-half {
+    transition-property: transform, opacity;
+  }
+
+  .invitation-opening:is(.is-cracking, .is-opening, .is-open) .flap-surface,
+  .invitation-opening:is(.is-cracking, .is-opening, .is-open) .flap-pattern {
+    filter: none !important;
+  }
+
+  .invitation-opening:is(.is-cracking, .is-opening, .is-open) .flap-pattern {
+    opacity: 0.075;
+    mix-blend-mode: normal;
+  }
+
+  .invitation-opening:is(.is-cracking, .is-opening, .is-open) .flap-embroidery {
+    opacity: 0.14 !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .invitation-opening:is(.is-cracking, .is-opening, .is-open) .flap--top,
+  .invitation-opening.is-cracking .seal-half {
+    filter: none !important;
+  }
+
+  .invitation-opening:is(.is-cracking, .is-opening, .is-open) .seal-anchor {
+    animation: none;
+  }
+
+  .flap-side-layer {
+    isolation: auto;
+  }
+
+  .fold-light {
+    display: none;
+  }
+
+  .crack-line {
+    filter: none;
+  }
+
+  .wax-seal:hover {
+    filter: none;
+  }
+}
+
+@keyframes envelope-arrive-mobile {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (max-height: 690px) {
   .invitation-opening {
     padding: 0;

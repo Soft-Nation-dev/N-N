@@ -356,6 +356,7 @@ export function InvitationExperience() {
                     />
                     {/* Real embroidery texture on left flap */}
                     <path
+                      className="flap-embroidery"
                       d="M0 0 L423 510 L0 1000 Z"
                       fill="url(#embroideryTexture)"
                       opacity="0.2"
@@ -398,6 +399,7 @@ export function InvitationExperience() {
                     />
                     {/* Real embroidery texture on right flap */}
                     <path
+                      className="flap-embroidery"
                       d="M780 0 L357 510 L780 1000 Z"
                       fill="url(#embroideryTexture)"
                       opacity="0.2"
@@ -443,6 +445,7 @@ export function InvitationExperience() {
                   />
                   {/* Real embroidery texture on bottom flap */}
                   <path
+                    className="flap-embroidery"
                     d="M0 1000 L390 438 L780 1000 Z"
                     fill="url(#embroideryTexture)"
                     opacity="0.2"
@@ -487,6 +490,7 @@ export function InvitationExperience() {
                   />
                   {/* Real embroidery texture on top flap */}
                   <path
+                    className="flap-embroidery"
                     d="M0 0 L390 548 L780 0 Z"
                     fill="url(#embroideryTexture)"
                     opacity="0.22"
