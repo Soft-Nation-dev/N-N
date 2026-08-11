@@ -35,14 +35,13 @@ function RollingTimeUnit({ value, label }: { value: number; label: string }) {
         className={`rolling-number${isDays ? ' rolling-number--days' : ''}`}
         aria-live="off"
       >
-        <AnimatePresence initial={false} mode="popLayout">
+        <AnimatePresence initial={false}>
           <motion.strong
             className="rolling-number__value"
             key={formattedValue}
-            layout
-            initial={{ y: '100%', opacity: 0, filter: 'blur(4px)' }}
-            animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-            exit={{ y: '-100%', opacity: 0, filter: 'blur(4px)' }}
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            exit={{ y: '-100%', opacity: 0 }}
             transition={{ duration: 0.6, ease: luxuryEase }}
           >
             {formattedValue}

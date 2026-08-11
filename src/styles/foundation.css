@@ -144,6 +144,18 @@
   }
 }
 
+@media (max-width: 760px), (pointer: coarse) {
+  .paper-section,
+  .wedding-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 44rem;
+  }
+
+  .replay-opening {
+    backdrop-filter: none;
+  }
+}
+
 .invitation-page {
   --stationery: #fbf7ee;
   --stationery-deep: #f3eadb;

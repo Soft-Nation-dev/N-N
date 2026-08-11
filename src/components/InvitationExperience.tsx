@@ -4,7 +4,11 @@ import {
   useState,
   type CSSProperties,
 } from 'react'
+import backdropImg from '../assets/backdrop.png'
 import embroideryImg from '../assets/embroidery.jpg'
+import heroBgDesktop from '../assets/hero-bg-desktop.jpg'
+import heroBgMobile from '../assets/hero-bg-mobile.jpg'
+import rsvpSealImg from '../assets/rsvp-seal.jpg'
 import sealImage from '../assets/seal.png'
 import { InvitationPage } from './InvitationPage'
 
@@ -22,12 +26,95 @@ const motes = [
   { x: '92%', y: '48%', delay: '-5s', duration: '13s' },
 ]
 
+function preloadImage(source: string) {
+  return new Promise<void>((resolve) => {
+    const image = new Image()
+
+    image.decoding = 'async'
+    image.onload = async () => {
+      try {
+        await image.decode()
+      } catch {
+        // A decoded image is preferred, but a completed download is sufficient.
+      }
+      resolve()
+    }
+    image.onerror = () => resolve()
+    image.src = source
+  })
+}
+
 export function InvitationExperience() {
   const [phase, setPhase] = useState<OpeningPhase>('sealed')
   const [introVisible, setIntroVisible] = useState(true)
+  const [resourcesReady, setResourcesReady] = useState(false)
+  const [loaderVisible, setLoaderVisible] = useState(true)
   const crackTimer = useRef<number | null>(null)
   const completionTimer = useRef<number | null>(null)
   const dismissTimer = useRef<number | null>(null)
+
+  useEffect(() => {
+    let isActive = true
+    let loaderTimer: number | null = null
+    let safetyTimer: number | null = null
+
+    const pageLoaded = new Promise<void>((resolve) => {
+      if (document.readyState === 'complete') {
+        resolve()
+        return
+      }
+      window.addEventListener('load', () => resolve(), { once: true })
+    })
+
+    const heroImage = window.matchMedia('(min-width: 768px)').matches
+      ? heroBgDesktop
+      : heroBgMobile
+
+    const imagesLoaded = Promise.all([
+      embroideryImg,
+      sealImage,
+      heroImage,
+      backdropImg,
+      rsvpSealImg,
+    ].map(preloadImage))
+
+    const fontsLoaded = 'fonts' in document
+      ? Promise.allSettled([
+          document.fonts.load('1em "Great Vibes"'),
+          document.fonts.load('1em "Pinyon Script"'),
+          document.fonts.load('1em "Cormorant Garamond"'),
+        ]).then(() => document.fonts.ready)
+      : Promise.resolve()
+
+    const minimumDisplay = new Promise<void>((resolve) => {
+      window.setTimeout(resolve, 500)
+    })
+
+    const safetyRelease = new Promise<void>((resolve) => {
+      safetyTimer = window.setTimeout(resolve, 15000)
+    })
+
+    Promise.race([
+      Promise.all([pageLoaded, imagesLoaded, fontsLoaded, minimumDisplay]),
+      safetyRelease,
+    ]).then(() => {
+      if (!isActive) return
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (!isActive) return
+          setResourcesReady(true)
+          loaderTimer = window.setTimeout(() => setLoaderVisible(false), 650)
+        })
+      })
+    })
+
+    return () => {
+      isActive = false
+      if (loaderTimer !== null) window.clearTimeout(loaderTimer)
+      if (safetyTimer !== null) window.clearTimeout(safetyTimer)
+    }
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -95,7 +182,24 @@ export function InvitationExperience() {
   }
 
   return (
-    <div className="wedding-site">
+    <div
+      className={`wedding-site ${resourcesReady ? 'resources-ready' : 'resources-loading'}`}
+      aria-busy={!resourcesReady}
+    >
+      {loaderVisible && (
+        <div
+          className={`resource-loader${resourcesReady ? ' is-leaving' : ''}`}
+          role="status"
+          aria-live="polite"
+        >
+          <div className="resource-loader__monogram" aria-hidden="true">
+            <span>N</span><i>&amp;</i><span>N</span>
+          </div>
+          <p>Preparing your invitation</p>
+          <span className="resource-loader__line" aria-hidden="true" />
+        </div>
+      )}
+
       <InvitationPage
         onReplay={replayOpening}
         celebrationActive={!introVisible}

@@ -305,6 +305,14 @@ body.intro-locked .scroll-cue__chevron {
   .scroll-cue {
     bottom: max(1.15rem, env(safe-area-inset-bottom, 0px));
   }
+
+  .hero-petals i {
+    filter: none;
+  }
+
+  .hero-flower-burst i:nth-child(n + 21) {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
