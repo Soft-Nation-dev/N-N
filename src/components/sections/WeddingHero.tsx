@@ -1,12 +1,10 @@
 import type { CSSProperties } from 'react'
 import { motion } from 'motion/react'
-import heroBgMobile from '../../assets/hero-bg-mobile.jpg'
+import backdropImg from '../../assets/backdrop.png'
 import heroBgDesktop from '../../assets/hero-bg-desktop.jpg'
 import { wedding } from '../../content/wedding'
 import {
   childVariants,
-  sectionVariants,
-  sectionViewport,
   staggerContainer,
 } from '../animation'
 
@@ -41,16 +39,12 @@ export function WeddingHero({ celebrationActive }: { celebrationActive: boolean 
     <motion.section
       className="wedding-hero"
       id="home"
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
     >
       <picture className="wedding-hero__art-container">
         <source media="(min-width: 768px)" srcSet={heroBgDesktop} />
         <img
           className="wedding-hero__art"
-          src={heroBgMobile}
+          src={backdropImg}
           alt=""
         />
       </picture>
@@ -93,7 +87,12 @@ export function WeddingHero({ celebrationActive }: { celebrationActive: boolean 
         </div>
       )}
 
-      <motion.div className="wedding-hero__content" variants={staggerContainer}>
+      <motion.div
+        className="wedding-hero__content"
+        variants={staggerContainer}
+        initial="hidden"
+        animate={celebrationActive ? 'visible' : 'hidden'}
+      >
         <motion.p className="hero-eyebrow" variants={childVariants}>
           Wedding Day
         </motion.p>
@@ -113,25 +112,34 @@ export function WeddingHero({ celebrationActive }: { celebrationActive: boolean 
         aria-label="Scroll to invitation details"
         variants={childVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={sectionViewport}
+        animate={celebrationActive ? 'visible' : 'hidden'}
       >
         <span>Scroll down</span>
         <svg
           className="scroll-cue__chevron"
-          width="16"
-          height="10"
-          viewBox="0 0 14 8"
+          width="28"
+          height="22"
+          viewBox="0 0 28 22"
           fill="none"
           aria-hidden="true"
         >
           <path
-            d="M1 1L7 7L13 1"
+            className="scroll-cue__chevron-line scroll-cue__chevron-line--upper"
+            d="M3 3L14 12L25 3"
             stroke="currentColor"
-            strokeWidth="1.5"
+            strokeWidth="2.45"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+          <path
+            className="scroll-cue__chevron-line scroll-cue__chevron-line--lower"
+            d="M6 10L14 18L22 10"
+            stroke="currentColor"
+            strokeWidth="2.05"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <circle cx="14" cy="3" r="1.8" fill="currentColor" />
         </svg>
       </motion.a>
     </motion.section>

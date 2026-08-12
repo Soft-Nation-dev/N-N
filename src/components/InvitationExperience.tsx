@@ -5,9 +5,11 @@ import {
   type CSSProperties,
 } from 'react'
 import backdropImg from '../assets/backdrop.png'
+import weddingMusic from '../assets/Christina Perri - A Thousand Years (Piano & Cello Cover) - The Piano Guys.mp3'
+import churchImage from '../assets/church.jpg'
 import embroideryImg from '../assets/embroidery.jpg'
 import heroBgDesktop from '../assets/hero-bg-desktop.jpg'
-import heroBgMobile from '../assets/hero-bg-mobile.jpg'
+import receptionHallImage from '../assets/reception-hall-image.webp'
 import rsvpSealImg from '../assets/rsvp-seal.jpg'
 import sealImage from '../assets/seal.png'
 import { InvitationPage } from './InvitationPage'
@@ -49,14 +51,16 @@ export function InvitationExperience() {
   const [introVisible, setIntroVisible] = useState(true)
   const [resourcesReady, setResourcesReady] = useState(false)
   const [loaderVisible, setLoaderVisible] = useState(true)
+  const [musicPlaying, setMusicPlaying] = useState(false)
   const crackTimer = useRef<number | null>(null)
   const completionTimer = useRef<number | null>(null)
-  const dismissTimer = useRef<number | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     let isActive = true
     let loaderTimer: number | null = null
     let safetyTimer: number | null = null
+    let releaseMusicLoader: (() => void) | null = null
 
     const pageLoaded = new Promise<void>((resolve) => {
       if (document.readyState === 'complete') {
@@ -68,15 +72,36 @@ export function InvitationExperience() {
 
     const heroImage = window.matchMedia('(min-width: 768px)').matches
       ? heroBgDesktop
-      : heroBgMobile
+      : backdropImg
 
     const imagesLoaded = Promise.all([
       embroideryImg,
       sealImage,
       heroImage,
-      backdropImg,
       rsvpSealImg,
+      churchImage,
+      receptionHallImage,
     ].map(preloadImage))
+
+    const musicLoaded = new Promise<void>((resolve) => {
+      const audio = audioRef.current
+
+      if (!audio || audio.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+        resolve()
+        return
+      }
+
+      const finish = () => {
+        audio.removeEventListener('canplay', finish)
+        audio.removeEventListener('error', finish)
+        resolve()
+      }
+
+      releaseMusicLoader = finish
+      audio.addEventListener('canplay', finish, { once: true })
+      audio.addEventListener('error', finish, { once: true })
+      audio.load()
+    })
 
     const fontsLoaded = 'fonts' in document
       ? Promise.allSettled([
@@ -95,7 +120,13 @@ export function InvitationExperience() {
     })
 
     Promise.race([
-      Promise.all([pageLoaded, imagesLoaded, fontsLoaded, minimumDisplay]),
+      Promise.all([
+        pageLoaded,
+        imagesLoaded,
+        musicLoaded,
+        fontsLoaded,
+        minimumDisplay,
+      ]),
       safetyRelease,
     ]).then(() => {
       if (!isActive) return
@@ -113,10 +144,13 @@ export function InvitationExperience() {
       isActive = false
       if (loaderTimer !== null) window.clearTimeout(loaderTimer)
       if (safetyTimer !== null) window.clearTimeout(safetyTimer)
+      releaseMusicLoader?.()
     }
   }, [])
 
   useEffect(() => {
+    const audio = audioRef.current
+
     return () => {
       if (crackTimer.current !== null) {
         window.clearTimeout(crackTimer.current)
@@ -124,9 +158,7 @@ export function InvitationExperience() {
       if (completionTimer.current !== null) {
         window.clearTimeout(completionTimer.current)
       }
-      if (dismissTimer.current !== null) {
-        window.clearTimeout(dismissTimer.current)
-      }
+      audio?.pause()
     }
   }, [])
 
@@ -137,6 +169,17 @@ export function InvitationExperience() {
 
   const openInvitation = () => {
     if (phase !== 'sealed') return
+
+    // This stays inside the seal's click event so mobile browsers recognize it
+    // as user-initiated and the first note begins with the crack animation.
+    const audio = audioRef.current
+    if (audio) {
+      audio.loop = true
+      void audio.play().catch(() => {
+        // The seal click is a user gesture, but some device-level media settings
+        // can still refuse playback. The visual opening should continue normally.
+      })
+    }
 
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
@@ -151,21 +194,16 @@ export function InvitationExperience() {
         completionTimer.current = window.setTimeout(
           () => {
             setPhase('open')
-            dismissTimer.current = window.setTimeout(
-              () => setIntroVisible(false),
-              prefersReducedMotion ? 180 : 700,
-            )
+            setIntroVisible(false)
           },
-          prefersReducedMotion ? 400 : 1600,
+          prefersReducedMotion ? 400 : 6400,
         )
       },
-      prefersReducedMotion ? 100 : 900,
+      prefersReducedMotion ? 100 : 1800,
     )
   }
 
   const replayOpening = () => {
-    setIntroVisible(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
     if (crackTimer.current !== null) {
       window.clearTimeout(crackTimer.current)
       crackTimer.current = null
@@ -174,11 +212,28 @@ export function InvitationExperience() {
       window.clearTimeout(completionTimer.current)
       completionTimer.current = null
     }
-    if (dismissTimer.current !== null) {
-      window.clearTimeout(dismissTimer.current)
-      dismissTimer.current = null
+
+    const audio = audioRef.current
+    if (audio) {
+      audio.pause()
+      audio.currentTime = 0
     }
+
+    window.scrollTo({ top: 0, behavior: 'auto' })
     setPhase('sealed')
+    setIntroVisible(true)
+  }
+
+  const toggleMusic = () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (audio.paused) {
+      void audio.play().catch(() => setMusicPlaying(false))
+      return
+    }
+
+    audio.pause()
   }
 
   return (
@@ -186,6 +241,18 @@ export function InvitationExperience() {
       className={`wedding-site ${resourcesReady ? 'resources-ready' : 'resources-loading'}`}
       aria-busy={!resourcesReady}
     >
+      <audio
+        ref={audioRef}
+        src={weddingMusic}
+        preload="auto"
+        loop
+        aria-hidden="true"
+        onPlay={() => setMusicPlaying(true)}
+        onPause={() => setMusicPlaying(false)}
+        onEnded={() => setMusicPlaying(false)}
+        onError={() => setMusicPlaying(false)}
+      />
+
       {loaderVisible && (
         <div
           className={`resource-loader${resourcesReady ? ' is-leaving' : ''}`}
@@ -202,6 +269,8 @@ export function InvitationExperience() {
 
       <InvitationPage
         onReplay={replayOpening}
+        onToggleMusic={toggleMusic}
+        musicPlaying={musicPlaying}
         celebrationActive={!introVisible}
       />
 
@@ -689,22 +758,22 @@ export function InvitationExperience() {
                       <path
                         className="crack-line crack-line--main"
                         pathLength="1"
-                        d="M50 2 L48.5 13 L52 22 L49 32 L53 42 L48.5 53 L51.5 63 L47.5 74 L50.5 85 L49 98"
+                        d="M50 8 C49.2 13 48.5 16 50.8 20 L48.7 28 L51.4 35 L49.2 42 L52 49 L48.8 57 L50.9 64 L47.9 72 L50.2 80 L49 92"
                       />
                       <path
                         className="crack-line crack-line--branch crack-line--branch-one"
                         pathLength="1"
-                        d="M49.4 31.5 L41.5 27 L35 30 L28.5 27"
+                        d="M50.4 33 L44.4 29.4 L40.1 31.2 L35.8 28.6"
                       />
                       <path
                         className="crack-line crack-line--branch crack-line--branch-two"
                         pathLength="1"
-                        d="M52.3 43 L60.5 38.5 L67 41 L74.5 36.5"
+                        d="M51.3 47.2 L57.2 43.1 L61.6 45 L67.1 40.8"
                       />
                       <path
                         className="crack-line crack-line--branch crack-line--branch-three"
                         pathLength="1"
-                        d="M48.6 65.5 L40.5 70.5 L34 68 L28 73.5"
+                        d="M49.7 66.8 L44.1 71 L40 69.8 L35.6 73.2"
                       />
                     </svg>
                   </button>

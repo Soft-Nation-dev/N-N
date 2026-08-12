@@ -34,29 +34,45 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
   margin: 1.5rem auto 2.5rem;
 }
 
 .rsvp-wax-seal-button {
-  width: clamp(6.5rem, 22vw, 8.5rem);
-  aspect-ratio: 1;
+  display: flex;
+  width: min(100%, 18rem);
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   border: none;
   background: transparent;
   padding: 0;
   cursor: pointer;
-  border-radius: 50%;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
-  filter: drop-shadow(0 10px 22px rgba(60, 20, 25, 0.32));
+  color: #fffaf1;
+  border-radius: 1rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .rsvp-wax-seal-button:hover {
-  transform: scale(1.06) rotate(2deg);
-  filter: drop-shadow(0 14px 28px rgba(60, 20, 25, 0.42));
+  transform: translateY(-3px) scale(1.02);
 }
 
 .rsvp-wax-seal-button:active {
   transform: scale(0.96);
+}
+
+.rsvp-wax-seal-button:focus-visible {
+  outline: 3px solid rgba(183, 147, 75, 0.72);
+  outline-offset: 0.5rem;
+}
+
+.rsvp-seal-rotator {
+  display: block;
+  width: clamp(7rem, 24vw, 9rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: drop-shadow(0 10px 22px rgba(60, 20, 25, 0.32));
+  animation: rsvp-seal-turn 32s linear infinite;
+  will-change: transform;
 }
 
 .rsvp-seal-image {
@@ -68,21 +84,40 @@
 
 .rsvp-click-cue {
   display: flex;
+  width: 100%;
+  min-height: 4.4rem;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  color: #7a5046;
+  justify-content: center;
+  gap: 0.14rem;
+  padding: 0.68rem 1rem 0.78rem;
+  border: 1px solid rgba(218, 185, 110, 0.72);
+  border-radius: 999px;
+  color: #fffaf1;
+  background: linear-gradient(135deg, #75424c, #542532);
+  box-shadow: 0 0.7rem 1.5rem rgba(72, 31, 38, 0.2);
 }
 
 .rsvp-chevron {
-  color: #7a5046;
+  margin-top: -1.2rem;
+  color: #d9bd7b;
+  filter: drop-shadow(0 2px 2px rgba(60, 20, 25, 0.2));
   animation: rsvp-bounce 1.8s ease-in-out infinite;
 }
 
 .rsvp-click-text {
-  font-family: 'Great Vibes', 'Pinyon Script', cursive;
-  font-size: clamp(1.2rem, 3.8vw, 1.6rem);
-  font-weight: 400;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: clamp(0.95rem, 3.2vw, 1.08rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rsvp-click-cue small {
+  color: rgba(255, 250, 241, 0.74);
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
 }
 
 /* Sign-off */
@@ -114,6 +149,18 @@
 @keyframes rsvp-bounce {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-4px); }
+}
+
+@keyframes rsvp-seal-turn {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .rsvp-seal-rotator,
+  .rsvp-chevron {
+    animation: none;
+  }
 }
 
 /* Modal styles */
@@ -187,6 +234,209 @@
   background: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   font-size: 1.35rem;
+}
+
+.rsvp-modal--receipt {
+  width: min(100%, 39rem);
+  border: 1px solid rgba(178, 138, 70, 0.45);
+  outline: 1px solid rgba(110, 38, 54, 0.14);
+  outline-offset: -0.75rem;
+  background:
+    repeating-linear-gradient(96deg, rgba(104, 80, 52, 0.022) 0 1px, transparent 1px 7px),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.88), transparent 26rem),
+    #f8f0e2;
+}
+
+.rsvp-receipt {
+  position: relative;
+  isolation: isolate;
+}
+
+.rsvp-receipt::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -1rem;
+  border: 1px solid rgba(178, 138, 70, 0.18);
+  pointer-events: none;
+}
+
+.receipt-corner {
+  position: absolute;
+  z-index: -1;
+  width: 6rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(157, 116, 57, 0.2);
+  border-radius: 50%;
+}
+
+.receipt-corner--one { top: -3rem; left: -3rem; }
+.receipt-corner--two { right: -3rem; bottom: -3rem; }
+
+.receipt-intro,
+.receipt-note {
+  color: rgba(75, 41, 48, 0.72);
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.receipt-intro { margin: 1.5rem 0 0.35rem; }
+
+.receipt-guest {
+  display: block;
+  color: #6b3040;
+  font-family: 'Great Vibes', 'Pinyon Script', cursive;
+  font-size: clamp(2.2rem, 8vw, 3.7rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.receipt-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 1.5rem 0;
+  color: #b18a48;
+}
+
+.receipt-rule i {
+  width: min(24vw, 7rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b18a48);
+}
+
+.receipt-rule i:last-child { transform: scaleX(-1); }
+
+.receipt-details {
+  display: grid;
+  gap: 0;
+  width: min(100%, 27rem);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.receipt-details div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid rgba(178, 138, 70, 0.18);
+}
+
+.receipt-details dt {
+  color: #9a773e;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.receipt-details dd {
+  margin: 0;
+  color: #5a3439;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-weight: 600;
+}
+
+.receipt-seal {
+  display: grid;
+  width: 8.6rem;
+  aspect-ratio: 1;
+  place-content: center;
+  margin: 2rem auto 1.5rem;
+  border: 0.4rem double #d9b66f;
+  border-radius: 49% 51% 45% 55% / 53% 46% 54% 47%;
+  color: #fae5b7;
+  background:
+    radial-gradient(circle at 34% 26%, rgba(255, 218, 161, 0.3), transparent 22%),
+    radial-gradient(circle at 42% 34%, #9a5367, #6b293f 58%, #421527);
+  box-shadow:
+    0 0.9rem 1.6rem rgba(54, 17, 29, 0.34),
+    inset 0 0 1.1rem rgba(45, 8, 19, 0.5),
+    inset 0 1px 0 rgba(255, 236, 191, 0.32);
+  text-shadow: 0 1px 2px #35101a;
+  transform: rotate(-5deg);
+}
+
+.receipt-seal--received {
+  filter: saturate(0.62);
+  transform: rotate(4deg);
+}
+
+.receipt-seal > span {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.receipt-seal b {
+  color: #f4dda9;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: 1.65rem;
+  font-style: italic;
+}
+
+.receipt-seal b span { margin: 0 -0.08em; color: #dcb777; }
+.receipt-seal small { font-size: 0.5rem; letter-spacing: 0.14em; }
+
+.receipt-note { margin: 0 auto; }
+
+.receipt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.receipt-actions button {
+  padding: 0.72rem 1rem;
+  border: 1px solid #6e2636;
+  color: #fff9f2;
+  background: #6e2636;
+  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.receipt-actions button:last-child {
+  color: #6e2636;
+  background: transparent;
+}
+
+@media (max-width: 460px) {
+
+  .receipt-details div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+@media print {
+
+  body > * { visibility: hidden; }
+  .modal-backdrop,
+  .modal-backdrop * { visibility: visible; }
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    background: #fff;
+  }
+  .rsvp-modal--receipt {
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    box-shadow: none;
+  }
+  .receipt-actions,
+  .modal-close { display: none !important; }
 }
 
 @keyframes modal-fade {

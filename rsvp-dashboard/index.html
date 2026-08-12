@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#4c1724" />
+    <title>The Guest Ledger | Vanilla Love Story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/ledger.css" />
+  </head>
+  <body>
+    <main class="ledger-shell">
+      <div class="ledger-flourish ledger-flourish--left" aria-hidden="true">❧</div>
+      <div class="ledger-flourish ledger-flourish--right" aria-hidden="true">❧</div>
+
+      <header class="ledger-header">
+        <p class="ledger-kicker">The private guest register of</p>
+        <h1>Nwaamaka <span>&amp;</span> Nnaemeka</h1>
+        <p class="ledger-date">Saturday, 19 December 2026</p>
+        <div class="ledger-ornament" aria-hidden="true"><i></i><b>✦</b><i></i></div>
+      </header>
+
+      <section class="ledger-lock" id="ledger-lock" aria-labelledby="lock-title">
+        <div class="ledger-seal" aria-hidden="true">
+          <span>N<span>&amp;</span>N</span>
+          <small>19 · 12 · 26</small>
+        </div>
+        <p class="ledger-kicker">A sealed volume</p>
+        <h2 id="lock-title">Open the Guest Ledger</h2>
+        <p>This page contains private guest responses. Enter the administrator passphrase to continue.</p>
+        <form id="unlock-form" class="unlock-form">
+          <label for="admin-password">Administrator passphrase</label>
+          <div>
+            <input id="admin-password" name="password" type="password" autocomplete="current-password" required />
+            <button type="submit">Unseal ledger</button>
+          </div>
+          <p class="form-status" id="unlock-status" role="status"></p>
+        </form>
+      </section>
+
+      <section class="ledger-content" id="ledger-content" hidden aria-live="polite">
+        <div class="ledger-toolbar">
+          <div>
+            <p class="ledger-kicker">Vanilla Love Story</p>
+            <h2>Responses Received</h2>
+          </div>
+          <div class="ledger-actions">
+            <button type="button" id="refresh-ledger">Refresh</button>
+            <button type="button" id="print-ledger">Print</button>
+            <button type="button" id="seal-ledger">Seal ledger</button>
+          </div>
+        </div>
+
+        <div class="ledger-summary" aria-label="RSVP summary">
+          <article><strong id="total-responses">0</strong><span>Responses</span></article>
+          <article><strong id="total-attending">0</strong><span>Accepting</span></article>
+          <article><strong id="total-guests">0</strong><span>Expected guests</span></article>
+          <article><strong id="total-declined">0</strong><span>Declining</span></article>
+        </div>
+
+        <form class="ledger-filters" id="ledger-filters">
+          <label>
+            <span>Search the ledger</span>
+            <input name="q" type="search" placeholder="Name, receipt or message" />
+          </label>
+          <label>
+            <span>Response</span>
+            <select name="status">
+              <option value="">All responses</option>
+              <option value="accepts">Joyfully accepts</option>
+              <option value="declines">Regretfully declines</option>
+            </select>
+          </label>
+          <button type="submit">Apply</button>
+        </form>
+
+        <p class="ledger-status" id="ledger-status" role="status"></p>
+        <div class="ledger-entries" id="ledger-entries"></div>
+      </section>
+
+      <footer>
+        <span>Est.</span>
+        <strong>N &amp; N</strong>
+        <span>2026</span>
+      </footer>
+    </main>
+    <script type="module" src="/ledger.js"></script>
+  </body>
+</html>

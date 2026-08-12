@@ -198,15 +198,18 @@ body.intro-locked .scroll-cue__chevron {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
-  color: #7a5046;
+  gap: 0.4rem;
+  color: #4f2e29;
   font-family: 'Great Vibes', 'Pinyon Script', cursive;
-  font-size: clamp(1.15rem, 3.6vw, 1.55rem);
-  font-weight: 400;
+  font-size: clamp(1.55rem, 4.8vw, 2.1rem);
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
   z-index: 2;
-  text-shadow: 0 1px 2px rgba(255, 252, 245, 0.85);
+  text-shadow:
+    0 1px 0 rgba(255, 252, 245, 0.98),
+    0 2px 1px rgba(79, 45, 38, 0.22),
+    0 4px 10px rgba(79, 45, 38, 0.2);
   transition: color 0.25s ease, opacity 0.25s ease;
 }
 
@@ -215,6 +218,8 @@ body.intro-locked .scroll-cue__chevron {
   height: auto;
   background: none;
   animation: none;
+  line-height: 1;
+  -webkit-text-stroke: 0.35px currentColor;
 }
 
 .scroll-cue:hover {
@@ -222,13 +227,21 @@ body.intro-locked .scroll-cue__chevron {
 }
 
 .scroll-cue__chevron {
-  animation: scroll-bounce 1.8s ease-in-out infinite;
-  color: #7a5046;
+  overflow: visible;
+  color: #765022;
+  filter:
+    drop-shadow(0 1px 0 rgba(255, 248, 226, 0.92))
+    drop-shadow(0 3px 4px rgba(74, 43, 29, 0.3));
+  animation: scroll-bounce 2.1s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.scroll-cue__chevron-line--lower {
+  opacity: 0.82;
 }
 
 @keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(5px); }
+  0%, 100% { opacity: 0.72; transform: translateY(0); }
+  50%       { opacity: 1; transform: translateY(7px); }
 }
 
 @keyframes petal-fall {

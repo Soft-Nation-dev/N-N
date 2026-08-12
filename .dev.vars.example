@@ -1,0 +1,2 @@
+ADMIN_PASSWORD=replace-with-a-long-private-passphrase
+RSVP_HASH_SALT=replace-with-a-random-private-value

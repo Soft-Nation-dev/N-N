@@ -9,7 +9,7 @@ import {
   staggerContainer,
 } from '../animation'
 
-export function RsvpSection({ onOpen }: { onOpen: () => void }) {
+export function RsvpSection({ onOpen, hasReceipt }: { onOpen: () => void; hasReceipt: boolean }) {
   return (
     <motion.section
       className="paper-section rsvp-section torn-card-section"
@@ -38,17 +38,20 @@ export function RsvpSection({ onOpen }: { onOpen: () => void }) {
             className="rsvp-wax-seal-button"
             type="button"
             onClick={onOpen}
-            aria-label="Open RSVP form"
+            aria-label={hasReceipt ? 'View your RSVP receipt' : 'Open RSVP form'}
           >
-            <img src={rsvpSealImg} alt="RSVP Wax Seal" className="rsvp-seal-image" />
+            <span className="rsvp-seal-rotator">
+              <img src={rsvpSealImg} alt="" className="rsvp-seal-image" />
+            </span>
+
+            <span className="rsvp-click-cue">
+              <svg width="18" height="10" viewBox="0 0 18 10" fill="none" className="rsvp-chevron" aria-hidden="true">
+                <path d="M1 9L9 1L17 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <strong className="rsvp-click-text">{hasReceipt ? 'View your RSVP receipt' : 'Tap the seal to RSVP'}</strong>
+              <small>{hasReceipt ? 'Your response has been saved' : 'Open the attendance form'}</small>
+            </span>
           </button>
-          
-          <div className="rsvp-click-cue">
-            <svg width="14" height="8" viewBox="0 0 14 8" fill="none" className="rsvp-chevron">
-              <path d="M1 7L7 1L13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="rsvp-click-text">Click to open</span>
-          </div>
         </motion.div>
 
         {/* Sign-off */}
