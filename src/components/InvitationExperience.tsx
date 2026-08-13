@@ -9,7 +9,7 @@ import weddingMusic from '../assets/Christina Perri - A Thousand Years (Piano & 
 import churchImage from '../assets/church.jpg'
 import embroideryImg from '../assets/embroidery.jpg'
 import heroBgDesktop from '../assets/hero-bg-desktop.jpg'
-import invitationOpeningSeal from '../assets/invitation-opening-seal.png'
+import sealImage from '../assets/seal.png'
 import receptionHallImage from '../assets/reception-hall-image.webp'
 import rsvpSealImg from '../assets/rsvp-seal.jpg'
 import { InvitationPage } from './InvitationPage'
@@ -76,7 +76,7 @@ export function InvitationExperience() {
 
     const imagesLoaded = Promise.all([
       embroideryImg,
-      invitationOpeningSeal,
+      sealImage,
       heroImage,
       rsvpSealImg,
       churchImage,
@@ -743,10 +743,10 @@ export function InvitationExperience() {
                     <span className="seal-halo" aria-hidden="true" />
 
                     <span className="seal-half seal-half--left" aria-hidden="true">
-                      <img src={invitationOpeningSeal} alt="" draggable="false" />
+                      <img src={sealImage} alt="" draggable="false" />
                     </span>
                     <span className="seal-half seal-half--right" aria-hidden="true">
-                      <img src={invitationOpeningSeal} alt="" draggable="false" />
+                      <img src={sealImage} alt="" draggable="false" />
                     </span>
 
                     <svg
