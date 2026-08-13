@@ -342,22 +342,13 @@
 }
 
 .receipt-seal {
-  display: grid;
-  width: 8.6rem;
+  display: block;
+  width: clamp(8.8rem, 34vw, 11rem);
+  height: auto;
   aspect-ratio: 1;
-  place-content: center;
-  margin: 2rem auto 1.5rem;
-  border: 0.4rem double #d9b66f;
-  border-radius: 49% 51% 45% 55% / 53% 46% 54% 47%;
-  color: #fae5b7;
-  background:
-    radial-gradient(circle at 34% 26%, rgba(255, 218, 161, 0.3), transparent 22%),
-    radial-gradient(circle at 42% 34%, #9a5367, #6b293f 58%, #421527);
-  box-shadow:
-    0 0.9rem 1.6rem rgba(54, 17, 29, 0.34),
-    inset 0 0 1.1rem rgba(45, 8, 19, 0.5),
-    inset 0 1px 0 rgba(255, 236, 191, 0.32);
-  text-shadow: 0 1px 2px #35101a;
+  margin: 1.4rem auto 0.8rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0.8rem 1.1rem rgba(54, 17, 29, 0.28));
   transform: rotate(-5deg);
 }
 
@@ -365,22 +356,6 @@
   filter: saturate(0.62);
   transform: rotate(4deg);
 }
-
-.receipt-seal > span {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.45rem;
-  line-height: 1;
-}
-
-.receipt-seal b {
-  color: #f4dda9;
-  font-family: 'Cormorant Garamond', var(--serif), Georgia, serif;
-  font-size: 1.65rem;
-  font-style: italic;
-}
-
-.receipt-seal b span { margin: 0 -0.08em; color: #dcb777; }
-.receipt-seal small { font-size: 0.5rem; letter-spacing: 0.14em; }
 
 .receipt-note { margin: 0 auto; }
 
@@ -418,23 +393,117 @@
 }
 
 @media print {
+  @page {
+    size: A5 portrait;
+    margin: 0;
+  }
 
-  body > * { visibility: hidden; }
-  .modal-backdrop,
-  .modal-backdrop * { visibility: visible; }
+  html,
+  body,
+  #root {
+    width: 148mm !important;
+    min-width: 0 !important;
+    height: 210mm !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    background: #f8f0e2 !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #root > * { display: none !important; }
+
+  #root > .wedding-site,
+  .wedding-site > .invitation-page,
+  .invitation-page > .modal-backdrop,
+  .modal-backdrop > .rsvp-modal--receipt,
+  .rsvp-modal--receipt > .rsvp-receipt {
+    display: block !important;
+  }
+
+  .wedding-site,
+  .invitation-page {
+    width: 148mm !important;
+    height: 210mm !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .invitation-page > :not(.modal-backdrop),
+  .modal-backdrop > :not(.rsvp-modal--receipt) {
+    display: none !important;
+  }
+
   .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    display: block;
-    padding: 0;
-    background: #fff;
+    position: static !important;
+    width: 148mm !important;
+    height: 210mm !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    animation: none !important;
   }
+
   .rsvp-modal--receipt {
-    width: 100%;
-    max-height: none;
-    overflow: visible;
-    box-shadow: none;
+    width: 148mm !important;
+    height: 210mm !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 13mm 14mm 10mm !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0.35mm solid rgba(178, 138, 70, 0.55) !important;
+    outline-offset: -5mm !important;
+    box-shadow: none !important;
+    animation: none !important;
   }
+
+  .rsvp-receipt { height: 100%; }
+  .rsvp-receipt::before { inset: -2mm; }
+
+  .rsvp-modal h2 {
+    margin: 2mm 0 3mm;
+    font-size: 11mm;
+  }
+
+  .receipt-intro {
+    margin: 3mm 0 0;
+    font-size: 3.5mm;
+  }
+
+  .receipt-guest { font-size: 10mm; }
+  .receipt-rule { margin: 4mm 0; }
+  .receipt-details { width: 108mm; }
+
+  .receipt-details div {
+    grid-template-columns: 28mm 1fr;
+    gap: 3mm;
+    padding: 1.5mm 0;
+  }
+
+  .receipt-details dt { font-size: 2.4mm; }
+  .receipt-details dd { font-size: 3.6mm; }
+
+  .receipt-seal {
+    width: 34mm;
+    margin: 3mm auto 1mm;
+    filter: drop-shadow(0 2mm 2mm rgba(54, 17, 29, 0.22));
+  }
+
+  .receipt-note {
+    max-width: 100mm;
+    font-size: 3.2mm;
+  }
+
   .receipt-actions,
   .modal-close { display: none !important; }
 }

@@ -108,23 +108,14 @@ button { cursor: pointer; }
 .ledger-lock > p:not(.ledger-kicker) { line-height: 1.65; }
 
 .ledger-seal {
-  display: grid;
-  width: 8rem;
+  display: block;
+  width: 9.25rem;
   aspect-ratio: 1;
-  place-content: center;
-  margin: -6.2rem auto 2rem;
-  border: 0.38rem double #d6aa64;
-  border-radius: 48% 52% 46% 54% / 52% 45% 55% 48%;
-  color: #f7dfad;
-  background: radial-gradient(circle at 35% 27%, #985268, #6b283d 55%, #431528);
-  box-shadow: 0 0.8rem 1.5rem rgba(53, 17, 29, 0.34), inset 0 0 1rem rgba(50, 9, 21, 0.48);
-  text-shadow: 0 1px 2px #35101a;
+  margin: -7rem auto 1.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0.9rem 1.1rem rgba(53, 17, 29, 0.34));
   transform: rotate(-4deg);
 }
-
-.ledger-seal > span { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-style: italic; }
-.ledger-seal > span span { margin: 0 -0.08em; color: #dcb777; }
-.ledger-seal small { font-size: 0.54rem; letter-spacing: 0.13em; }
 
 .unlock-form { display: grid; gap: 0.55rem; margin-top: 1.5rem; text-align: left; }
 .unlock-form label, .ledger-filters label span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }

@@ -1,4 +1,5 @@
 import type { FormEvent } from 'react'
+import confirmationSeal from '../assets/confirmation-seal.png'
 
 export interface RsvpReceipt {
   code: string
@@ -57,7 +58,7 @@ export function RsvpModal({
             <h2 id="rsvp-title">
               {receipt.attendance === 'accepts' ? 'Your Place Is Reserved' : 'Your Response Is Received'}
             </h2>
-            <p className="receipt-intro">This certifies that the response of</p>
+            <p className="receipt-intro">This certifies the response of</p>
             <strong className="receipt-guest">{receipt.guestName}</strong>
 
             <div className="receipt-rule" aria-hidden="true"><i /><span>✦</span><i /></div>
@@ -72,11 +73,13 @@ export function RsvpModal({
               <div><dt>Receipt</dt><dd>{receipt.code}</dd></div>
             </dl>
 
-            <div className={`receipt-seal${receipt.attendance === 'declines' ? ' receipt-seal--received' : ''}`} aria-label={receipt.attendance === 'accepts' ? 'Attendance confirmed' : 'Response received'}>
-              <span>{receipt.attendance === 'accepts' ? 'Confirmed' : 'Received'}</span>
-              <b>N<span>&amp;</span>N</b>
-              <small>19 · 12 · 26</small>
-            </div>
+            <img
+              className={`receipt-seal${receipt.attendance === 'declines' ? ' receipt-seal--received' : ''}`}
+              src={confirmationSeal}
+              alt={receipt.attendance === 'accepts'
+                ? 'Confirm N and N, 19 December 2026 wax seal'
+                : 'N and N, 19 December 2026 wax seal'}
+            />
 
             <p className="receipt-note">
               {receipt.attendance === 'accepts'
@@ -84,7 +87,7 @@ export function RsvpModal({
                 : 'Thank you for sending your warm wishes to the couple.'}
             </p>
             <div className="receipt-actions">
-              <button type="button" onClick={() => window.print()}>Print or save receipt</button>
+              <button type="button" onClick={() => window.print()}>Download or print receipt</button>
               <button type="button" onClick={onEdit}>Edit my response</button>
             </div>
           </article>
