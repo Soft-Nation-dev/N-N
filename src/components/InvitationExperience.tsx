@@ -295,7 +295,7 @@ export function InvitationExperience() {
             ))}
           </div>
 
-          <p className="opening-kicker">Nwaamaka&nbsp; · &nbsp;Nnaemeka</p>
+          <p className="opening-kicker">Nwaamaka&nbsp; weds &nbsp;Nnaemeka</p>
 
           <section className="opening-stage" aria-label="Wedding invitation opening">
             <div className="envelope-shell">
