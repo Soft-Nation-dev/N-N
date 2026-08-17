@@ -2,7 +2,7 @@
 
 .countdown-section {
   position: relative;
-  padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1rem, 5vw, 2.5rem) clamp(4.5rem, 10vw, 6.5rem);
+  padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1rem, 5vw, 2.5rem) clamp(5.25rem, 11vw, 7rem);
   text-align: center;
   background: transparent;
   color: #523732;
@@ -96,7 +96,7 @@
 
 @media (max-width: 560px) {
   .countdown-section {
-    padding: 2.8rem 0.5rem 3.9rem;
+    padding: 2.8rem 0.5rem 5rem;
   }
 
   .countdown {
