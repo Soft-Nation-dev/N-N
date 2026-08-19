@@ -19,7 +19,7 @@
     }
   ],
   "vars": {
-    "ALLOWED_ORIGINS": "http://localhost:5173,https://soft-nation-dev.github.io"
+    "ALLOWED_ORIGINS": "http://localhost:5173,https://soft-nation-dev.github.io,https://vanillalovestory.com.ng,https://www.vanillalovestory.com.ng"
   },
   "secrets": {
     "required": ["ADMIN_PASSWORD", "RSVP_HASH_SALT"]
